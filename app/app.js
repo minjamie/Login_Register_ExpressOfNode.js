@@ -27,6 +27,8 @@ app.set("views", "./src/views");
 // 생성될 엔진을 ejs로 해석하도록
 app.set("view engine", "ejs");
 
+app.use(express.static(`${__dirname}/src/public`));
+// 디렉토리 네임은 app.js가 있는 현 위치 반환하고 그 안에 있는 src폴더 안에 있는 public폴더를 정적 경로 추가하는 명령어
 app.use("/", home);
 //use=>미들웨어를 등록해주는 메소드
 
