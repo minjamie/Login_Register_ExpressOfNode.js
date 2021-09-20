@@ -9,6 +9,9 @@ const output = {
   login: (req, res) => {
     res.render("home/login");
   },
+  register: (req, res) => {
+    res.render("home/register");
+  },
 };
 
 const process = {
@@ -29,10 +32,6 @@ const process = {
     response.success = false;
     response.msg = "로그인에 실패하셨습니다.";
     return res.json(response);
-  },
-
-  register: (req, res) => {
-    res.render(home / register);
   },
 };
 
