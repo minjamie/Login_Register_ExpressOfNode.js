@@ -16,6 +16,8 @@ const process = {
     const id = req.body.id,
       psw = req.body.psw;
     const users = UserStorage.getUsers("id", "psw");
+    // model단에서 설정한 데이터를 getUsers 메소드에서 정하고싶을 때
+    // id , psw 필드만 반환하고싶을때
     const response = {};
     if (users.id.includes(id)) {
       const idx = users.id.indexOf(id);
@@ -27,6 +29,10 @@ const process = {
     response.success = false;
     response.msg = "로그인에 실패하셨습니다.";
     return res.json(response);
+  },
+
+  register: (req, res) => {
+    res.render(home / register);
   },
 };
 
