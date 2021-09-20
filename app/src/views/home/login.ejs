@@ -6,11 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <script src="js/home/login.js" defer></script>
+  <script rel="stylesheet" src="../../public/css/home/login.css"></script>
 <!-- 노드에서는 js폴더로 접근하여 자바스크립트로 연결하기 위해서는 미들웨어가 필요함   -->
 </head>
 <body>
-  <input id="id" type="text" placeholder="아이디"><br>
-  <input id="psw" type="text" placeholder="비밀번호"><br>
-  <button>로그인</button>
+  <div class="login-page">
+      <form class="login-form">
+        <input id="id" type="text" placeholder="username"/>
+        <input id="psw" type="password" placeholder="password"/>
+        <button>login</button>
+        <p class="message">Not registered? <a href="register">Create an account</a></p>
+      </form>
+    </div>
+  </div>
 </body>
 </html>
