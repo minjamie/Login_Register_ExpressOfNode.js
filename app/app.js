@@ -17,6 +17,7 @@
 // 모듈
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
 
 const PORT = 8081;
 // 라우팅
@@ -29,6 +30,8 @@ app.set("view engine", "ejs");
 
 app.use(express.static(`${__dirname}/src/public`));
 // 디렉토리 네임은 app.js가 있는 현 위치 반환하고 그 안에 있는 src폴더 안에 있는 public폴더를 정적 경로 추가하는 명령어
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", home);
 //use=>미들웨어를 등록해주는 메소드
 
