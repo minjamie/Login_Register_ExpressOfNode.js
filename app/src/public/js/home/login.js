@@ -6,7 +6,8 @@ const id = document.querySelector("#id"),
 
 loginBtn.addEventListener("click", login);
 
-function login() {
+function login(e) {
+  e.preventDefault();
   const req = {
     id: id.value,
     psw: psw.value,
