@@ -6,7 +6,7 @@ class UserStorage {
     // 정적 변수로 만들어주면 클래스 자체에서 변수에 접근 가능하다
     id: ["minjae2246", "minjae2294", "taegyu"],
     psw: ["2246", "2294", "1234"],
-    names: ["김민재", "김재민", "김태규"],
+    name: ["김민재", "김재민", "김태규"],
   };
 
   static getUsers(...fields) {
@@ -34,6 +34,14 @@ class UserStorage {
     }, {});
 
     return userInfo;
+  }
+
+  static save(userInfo) {
+    const users = this.#users;
+    users.id.push(userInfo.id);
+    users.psw.push(userInfo.psw);
+    users.name.push(userInfo.name);
+    return { success: true };
   }
 }
 

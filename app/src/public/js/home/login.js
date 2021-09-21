@@ -2,12 +2,11 @@
 
 const id = document.querySelector("#id"),
   psw = document.querySelector("#psw"),
-  loginBtn = document.querySelector("button");
+  loginBtn = document.querySelector("#button");
 
 loginBtn.addEventListener("click", login);
 
-function login(e) {
-  e.preventDefault();
+function login() {
   const req = {
     id: id.value,
     psw: psw.value,
@@ -29,6 +28,6 @@ function login(e) {
       }
     })
     .catch((err) => {
-      console.error(new Error("로그인 중 에러 발생"));
+      console.error("로그인 중 에러 발생");
     });
 }

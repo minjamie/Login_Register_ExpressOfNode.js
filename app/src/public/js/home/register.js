@@ -4,17 +4,19 @@ const id = document.querySelector("#id"),
   name = document.querySelector("#name"),
   psw = document.querySelector("#psw"),
   confirmPsw = document.querySelector("#confirm-psw"),
-  registerBtn = document.querySelector("button");
+  registerBtn = document.querySelector("#button");
 
 registerBtn.addEventListener("click", register);
+console.log("hello ");
 
-function register(e) {
-  e.preventDefault();
+function register() {
+  if (!id.value) return alert("아이디를 입력해주세요.");
+  if (psw !== confirmPsw) return alert("비밀번호가 일치하지 않습니다");
+
   const req = {
     id: id.value,
-    psw: psw.value,
     name: name.value,
-    confirmPsw: confirmPsw.value,
+    psw: psw.value,
   };
 
   fetch("/register", {
@@ -33,6 +35,6 @@ function register(e) {
       }
     })
     .catch((err) => {
-      console.error(new Error("회원가입 중 에러 발생"));
+      console.error("회원가입 중 에러 발생");
     });
 }
