@@ -3,7 +3,7 @@
 const fs = require("fs").promises;
 
 class UserStorage {
-  static #getUserInfo() {
+  static #getUserInfo(data, id) {
     const users = JSON.parse(data);
     const idx = users.id.indexOf(id);
     const usersKey = Object.keys(users); // [id, psw, name]
@@ -13,11 +13,10 @@ class UserStorage {
     }, {});
     return userInfo;
   }
-  static getUsers(...fields) {
-    // ...변수명을 파라미터로 전달하면 변수명에 파라미터로 넘긴 값이 배열 형태로 들어온다
-    // const users = this.#users;
-    //getUsers메소드 호출시 새로운 유저정보인 id, psw만 만들어서 전달해줘야한다
-    // newUsers 안에 fields에 담겨져있는 내용들만 담기위해 reduce메서드 활용
+
+  static #getUsers(data, isAll, fields) {
+    const users = JSON.parse(data);
+    if (isAll) return users;
     const newUsers = fields.reduce((newUsers, filed) => {
       if (users.hasOwnProperty(filed)) {
         newUsers[filed] = users[filed];
@@ -25,7 +24,15 @@ class UserStorage {
       return newUsers;
     }, {});
     return newUsers;
-    // 데이터 은닉화 후 메서드로 전달 해줘야함
+  }
+
+  static getUsers(isAll, ...fields) {
+    return fs
+      .readFile("./src/databases/users.json")
+      .then((data) => {
+        return this.#getUsers(data, isAll, fields);
+      })
+      .catch(console.error);
   }
 
   static getUserInfo(id) {
@@ -37,12 +44,17 @@ class UserStorage {
       .catch(console.error);
   }
 
-  static save(userInfo) {
-    // const users = this.#users;
+  static async save(userInfo) {
+    const users = await this.getUsers(true);
+    if (users.id.includes(userInfo.id)) {
+      throw "이미 존재하는 아이디입니다.";
+    }
     users.id.push(userInfo.id);
     users.psw.push(userInfo.psw);
     users.name.push(userInfo.name);
+    fs.writeFile("./src/databases/users.json", JSON.stringify(users));
     return { success: true };
+    // 데이터 추가
   }
 }
 
