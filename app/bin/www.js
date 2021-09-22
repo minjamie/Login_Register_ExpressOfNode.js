@@ -1,7 +1,7 @@
 "use strict";
 
 const app = require("../app");
-const PORT = 8081;
+const PORT = process.env.PORT || 8081;
 
 app.listen(PORT, () => {
   console.log("express로 만든 서버");
