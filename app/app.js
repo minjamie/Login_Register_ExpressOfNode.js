@@ -1,10 +1,14 @@
 "use strict";
 // 모듈
 const express = require("express");
-const app = express();
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
+const morgan = require("morgan");
+
+const app = express();
 dotenv.config();
+
+const accessLogStream = require("./src/config/log");
 
 const PORT = 8081;
 // 라우팅
@@ -22,7 +26,9 @@ app.use(bodyParser.json());
 // 바디파서가 json 데이터를 파싱해도록 명시
 app.use(bodyParser.urlencoded({ extended: true }));
 // 바디 파서의 url 인코딩 설정하여 extended, true값
-// => URL을 통해 전달되는 데이터에 한글, 공백등과 같은 문자가 포함되는 경우 제대로 인식되지 않는 문제 해결
+// => URL을 통해 전달되는 데이터에 한글, 공백등과 같은  문자가 포함되는 경우 제대로 인식되지 않는 문제 해결
+app.use(morgan("dev"));
+app.use(morgan("common", { stream: accessLogStream }));
 app.use("/", home);
 //use=>미들웨어를 등록해주는 메소드
 
