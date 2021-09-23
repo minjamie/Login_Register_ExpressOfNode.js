@@ -32,6 +32,7 @@ function register() {
       if (res.success) {
         location.href = "/login";
       } else {
+        if (res.error) return alert(res.error);
         alert(res.msg);
       }
     })
